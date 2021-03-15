@@ -152,9 +152,9 @@ int32_t ret = DeactivateSensor(SENSOR_TYPE_ID_ACCELEROMETER, &sensorUser);
 
 ## 相关仓<a name="section1371113476307"></a>
 
-泛Sensor子系统
+[泛Sensor子系统](https://gitee.com/openharmony/docs/blob/master/zh-cn/readme/%E6%B3%9BSensor%E5%AD%90%E7%B3%BB%E7%BB%9F.md)
 
-**hmf/sensors/sensor\_lite**
+**sensors_sensor_lite**
 
-hmf/sensors/miscdevice\_lite
+[sensors_miscdevice_lite](https://gitee.com/openharmony/sensors_miscdevice_lite/blob/master/README_zh.md)
 
