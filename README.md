@@ -152,9 +152,9 @@ int32_t ret = DeactivateSensor(SENSOR_TYPE_ID_ACCELEROMETER, &sensorUser);
 
 ## Repositories Involved<a name="section1371113476307"></a>
 
-Pan-sensor subsystem
+[Pan-sensor subsystem](https://gitee.com/openharmony/docs/blob/master/en/readme/pan-sensor.md)
 
-**hmf/sensors/sensor\_lite**
+**sensors_sensor_lite**
 
-hmf/sensors/miscdevice\_lite
+[sensors_miscdevice_lite](https://gitee.com/openharmony/sensors_miscdevice_lite/blob/master/README.md)
 
