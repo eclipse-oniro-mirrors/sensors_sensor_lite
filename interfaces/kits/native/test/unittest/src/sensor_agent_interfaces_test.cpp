@@ -53,7 +53,7 @@ void SensorDataCallbackImpl(SensorEvent *event)
  * @tc.type: FUNC
  * @tc.require: AR000F46AD
  */
-HWTEST_F(SensorAgentInterfacesTest, GetAllSensorsInterfaceTest001, TestSize.Level0)
+HWTEST_F(SensorAgentInterfacesTest, GetAllSensorsInterfaceTest001, TestSize.Level1)
 {
     HILOG_INFO(HILOG_MODULE_APP, "GetAllSensorsInterfaceTest001 called");
     SensorInfo *sensorInfo = (SensorInfo *)NULLPTR;
@@ -77,7 +77,7 @@ HWTEST_F(SensorAgentInterfacesTest, GetAllSensorsInterfaceTest001, TestSize.Leve
  * @tc.type: FUNC
  * @tc.require: AR000F46AH
  */
-HWTEST_F(SensorAgentInterfacesTest, GetAllSensorsInterfaceTest002, TestSize.Level0)
+HWTEST_F(SensorAgentInterfacesTest, GetAllSensorsInterfaceTest002, TestSize.Level1)
 {
     HILOG_INFO(HILOG_MODULE_APP, "GetAllSensorsInterfaceTest002 called");
     SensorInfo **sensorInfo = (SensorInfo **)NULLPTR;
@@ -91,7 +91,7 @@ HWTEST_F(SensorAgentInterfacesTest, GetAllSensorsInterfaceTest002, TestSize.Leve
  * @tc.type: FUNC
  * @tc.require: AR000F46AH
  */
-HWTEST_F(SensorAgentInterfacesTest, GetAllSensorsInterfaceTest003, TestSize.Level0)
+HWTEST_F(SensorAgentInterfacesTest, GetAllSensorsInterfaceTest003, TestSize.Level1)
 {
     HILOG_INFO(HILOG_MODULE_APP, "GetAllSensorsInterfaceTest003 called");
     int32_t count = 0;
@@ -106,7 +106,7 @@ HWTEST_F(SensorAgentInterfacesTest, GetAllSensorsInterfaceTest003, TestSize.Leve
  * @tc.type: FUNC
  * @tc.require: AR000F46AH
  */
-HWTEST_F(SensorAgentInterfacesTest, GetAllSensorsInterfaceTest004, TestSize.Level0)
+HWTEST_F(SensorAgentInterfacesTest, GetAllSensorsInterfaceTest004, TestSize.Level1)
 {
     HILOG_INFO(HILOG_MODULE_APP, "%GetAllSensorsInterfaceTest004 called");
     SensorInfo *sensorInfo = (SensorInfo *)NULLPTR;
@@ -120,7 +120,7 @@ HWTEST_F(SensorAgentInterfacesTest, GetAllSensorsInterfaceTest004, TestSize.Leve
  * @tc.type: FUNC
  * @tc.require: AR000F46AI
  */
-HWTEST_F(SensorAgentInterfacesTest, ActivateSensorInterfaceTest001, TestSize.Level0)
+HWTEST_F(SensorAgentInterfacesTest, ActivateSensorInterfaceTest001, TestSize.Level1)
 {
     HILOG_INFO(HILOG_MODULE_APP, "ActivateSensorInterfaceTest001 called");
     SensorUser sensorUser;
@@ -134,7 +134,7 @@ HWTEST_F(SensorAgentInterfacesTest, ActivateSensorInterfaceTest001, TestSize.Lev
  * @tc.type: FUNC
  * @tc.require: AR000F46AI
  */
-HWTEST_F(SensorAgentInterfacesTest, ActivateSensorInterfaceTest002, TestSize.Level0)
+HWTEST_F(SensorAgentInterfacesTest, ActivateSensorInterfaceTest002, TestSize.Level1)
 {
     HILOG_INFO(HILOG_MODULE_APP, "ActivateSensorInterfaceTest002 called");
     SensorUser *sensorUser = (SensorUser *)NULLPTR;
@@ -149,7 +149,7 @@ HWTEST_F(SensorAgentInterfacesTest, ActivateSensorInterfaceTest002, TestSize.Lev
  * @tc.type: FUNC
  * @tc.require: AR000F46AI
  */
-HWTEST_F(SensorAgentInterfacesTest, ActivateSensorInterfaceTest003, TestSize.Level0)
+HWTEST_F(SensorAgentInterfacesTest, ActivateSensorInterfaceTest003, TestSize.Level1)
 {
     HILOG_INFO(HILOG_MODULE_APP, "ActivateSensorInterfaceTest003 called");
     SensorUser sensorUser;
@@ -175,7 +175,7 @@ HWTEST_F(SensorAgentInterfacesTest, ActivateSensorInterfaceTest003, TestSize.Lev
  * @tc.type: FUNC
  * @tc.require: AR000F46AJ
  */
-HWTEST_F(SensorAgentInterfacesTest, DeactivateSensorInterfaceTest001, TestSize.Level0)
+HWTEST_F(SensorAgentInterfacesTest, DeactivateSensorInterfaceTest001, TestSize.Level1)
 {
     HILOG_INFO(HILOG_MODULE_APP, "DeactivateSensorInterfaceTest001 called");
     SensorUser *sensorUser = (SensorUser *)NULLPTR;
@@ -189,7 +189,7 @@ HWTEST_F(SensorAgentInterfacesTest, DeactivateSensorInterfaceTest001, TestSize.L
  * @tc.type: FUNC
  * @tc.require: AR000F46AJ
  */
-HWTEST_F(SensorAgentInterfacesTest, DeactivateSensorInterfaceTest002, TestSize.Level0)
+HWTEST_F(SensorAgentInterfacesTest, DeactivateSensorInterfaceTest002, TestSize.Level1)
 {
     HILOG_INFO(HILOG_MODULE_APP, "DeactivateSensorInterfaceTest002 called");
     SensorUser sensorUser;
@@ -203,7 +203,7 @@ HWTEST_F(SensorAgentInterfacesTest, DeactivateSensorInterfaceTest002, TestSize.L
  * @tc.type: FUNC
  * @tc.require: AR000F46AD
  */
-HWTEST_F(SensorAgentInterfacesTest, SetBatchInterfaceTest001, TestSize.Level0)
+HWTEST_F(SensorAgentInterfacesTest, SetBatchInterfaceTest001, TestSize.Level1)
 {
     HILOG_INFO(HILOG_MODULE_APP, "SetBatchInterfaceTest001 called");
     SensorUser *sensorUser = (SensorUser *)nullptr;
@@ -217,7 +217,7 @@ HWTEST_F(SensorAgentInterfacesTest, SetBatchInterfaceTest001, TestSize.Level0)
  * @tc.type: FUNC
  * @tc.require: AR000F46AD
  */
-HWTEST_F(SensorAgentInterfacesTest, SetBatchInterfaceTest002, TestSize.Level0)
+HWTEST_F(SensorAgentInterfacesTest, SetBatchInterfaceTest002, TestSize.Level1)
 {
     HILOG_INFO(HILOG_MODULE_APP, "SetBatchInterfaceTest002 called");
     SensorUser sensorUser;
@@ -231,7 +231,7 @@ HWTEST_F(SensorAgentInterfacesTest, SetBatchInterfaceTest002, TestSize.Level0)
  * @tc.type: FUNC
  * @tc.require: AR000F46AF
  */
-HWTEST_F(SensorAgentInterfacesTest, SetBatchInterfaceTest003, TestSize.Level0)
+HWTEST_F(SensorAgentInterfacesTest, SetBatchInterfaceTest003, TestSize.Level1)
 {
     HILOG_INFO(HILOG_MODULE_APP, "SetBatchInterfaceTest003 called");
     SensorUser sensorUser;
@@ -245,7 +245,7 @@ HWTEST_F(SensorAgentInterfacesTest, SetBatchInterfaceTest003, TestSize.Level0)
  * @tc.type: FUNC
  * @tc.require: AR000F46AF
  */
-HWTEST_F(SensorAgentInterfacesTest, SetBatchInterfaceTest004, TestSize.Level0)
+HWTEST_F(SensorAgentInterfacesTest, SetBatchInterfaceTest004, TestSize.Level1)
 {
     HILOG_INFO(HILOG_MODULE_APP, "SetBatchInterfaceTest004 called");
     SensorUser sensorUser;
@@ -259,7 +259,7 @@ HWTEST_F(SensorAgentInterfacesTest, SetBatchInterfaceTest004, TestSize.Level0)
  * @tc.type: FUNC
  * @tc.require: AR000F46AF
  */
-HWTEST_F(SensorAgentInterfacesTest, SetBatchInterfaceTest005, TestSize.Level0)
+HWTEST_F(SensorAgentInterfacesTest, SetBatchInterfaceTest005, TestSize.Level1)
 {
     HILOG_INFO(HILOG_MODULE_APP, "SetBatchInterfaceTest005 called");
     SensorUser sensorUser;
@@ -273,7 +273,7 @@ HWTEST_F(SensorAgentInterfacesTest, SetBatchInterfaceTest005, TestSize.Level0)
  * @tc.type: FUNC
  * @tc.require: AR000F46AL
  */
-HWTEST_F(SensorAgentInterfacesTest, SubscribeSensorInterfaceTest001, TestSize.Level0)
+HWTEST_F(SensorAgentInterfacesTest, SubscribeSensorInterfaceTest001, TestSize.Level1)
 {
     HILOG_INFO(HILOG_MODULE_APP, "SubscribeSensorInterfaceTest001 called");
     SensorInfo *sensorInfo = (SensorInfo *)NULLPTR;
@@ -297,7 +297,7 @@ HWTEST_F(SensorAgentInterfacesTest, SubscribeSensorInterfaceTest001, TestSize.Le
  * @tc.type: FUNC
  * @tc.require: AR000F46AL
  */
-HWTEST_F(SensorAgentInterfacesTest, SubscribeSensorInterfaceTest002, TestSize.Level0)
+HWTEST_F(SensorAgentInterfacesTest, SubscribeSensorInterfaceTest002, TestSize.Level1)
 {
     HILOG_INFO(HILOG_MODULE_APP, "SubscribeSensorInterfaceTest002 called");
     SensorUser *sensorUser = (SensorUser *)NULLPTR;
@@ -311,7 +311,7 @@ HWTEST_F(SensorAgentInterfacesTest, SubscribeSensorInterfaceTest002, TestSize.Le
  * @tc.type: FUNC
  * @tc.require: AR000F46AL
  */
-HWTEST_F(SensorAgentInterfacesTest, SubscribeSensorInterfaceTest003, TestSize.Level0)
+HWTEST_F(SensorAgentInterfacesTest, SubscribeSensorInterfaceTest003, TestSize.Level1)
 {
     HILOG_INFO(HILOG_MODULE_APP, "SubscribeSensorInterfaceTest003 called");
     SensorUser sensorUser;
@@ -326,7 +326,7 @@ HWTEST_F(SensorAgentInterfacesTest, SubscribeSensorInterfaceTest003, TestSize.Le
  * @tc.type: FUNC
  * @tc.require: AR000F46AM
  */
-HWTEST_F(SensorAgentInterfacesTest, UnSubscribeSensorInterfaceTest001, TestSize.Level0)
+HWTEST_F(SensorAgentInterfacesTest, UnSubscribeSensorInterfaceTest001, TestSize.Level1)
 {
     HILOG_INFO(HILOG_MODULE_APP, "UnSubscribeSensorInterfaceTest001 called");
     SensorUser *sensorUser = (SensorUser *)NULLPTR;
@@ -340,7 +340,7 @@ HWTEST_F(SensorAgentInterfacesTest, UnSubscribeSensorInterfaceTest001, TestSize.
  * @tc.type: FUNC
  * @tc.require: AR000F46AM
  */
-HWTEST_F(SensorAgentInterfacesTest, UnSubscribeSensorInterfaceTest002, TestSize.Level0)
+HWTEST_F(SensorAgentInterfacesTest, UnSubscribeSensorInterfaceTest002, TestSize.Level1)
 {
     HILOG_INFO(HILOG_MODULE_APP, "UnSubscribeSensorInterfaceTest002 called");
     SensorUser sensorUser;
@@ -355,7 +355,7 @@ HWTEST_F(SensorAgentInterfacesTest, UnSubscribeSensorInterfaceTest002, TestSize.
  * @tc.type: FUNC
  * @tc.require: SR000F46AK
  */
-HWTEST_F(SensorAgentInterfacesTest, UnSubscribeSensorInterfaceTest003, TestSize.Level0)
+HWTEST_F(SensorAgentInterfacesTest, UnSubscribeSensorInterfaceTest003, TestSize.Level1)
 {
     HILOG_INFO(HILOG_MODULE_APP, "DataReportInterfaceTest001 called");
     SensorUser sensorUser;
@@ -387,7 +387,7 @@ HWTEST_F(SensorAgentInterfacesTest, DataReportInterfaceTest001, TestSize.Level0)
     int32_t count = 0;
 
     int32_t ret = GetAllSensors(&sensorInfo, &count);
-    EXPECT_EQ(ret, 0) << "GetAllSensorsTest001 ret = " << ret << endl;
+    EXPECT_EQ(ret, 0) << "GetAllSensors ret = " << ret << endl;
     sleep(1);
 
     ret = SubscribeSensor(0, &sensorUser);
@@ -412,7 +412,7 @@ HWTEST_F(SensorAgentInterfacesTest, DataReportInterfaceTest001, TestSize.Level0)
  * @tc.type: FUNC
  * @tc.require: AR000F46AO
  */
-HWTEST_F(SensorAgentInterfacesTest, DataReportInterfaceTest002, TestSize.Level0)
+HWTEST_F(SensorAgentInterfacesTest, DataReportInterfaceTest002, TestSize.Level1)
 {
     HILOG_INFO(HILOG_MODULE_APP, "DataReportInterfaceTest002 called");
     SensorUser sensorUser;
@@ -422,7 +422,7 @@ HWTEST_F(SensorAgentInterfacesTest, DataReportInterfaceTest002, TestSize.Level0)
     int32_t count = 0;
 
     int32_t ret = GetAllSensors(&sensorInfo, &count);
-    EXPECT_EQ(ret, 0) << "GetAllSensorsTest001 ret = " << ret << endl;
+    EXPECT_EQ(ret, 0) << "GetAllSensors ret = " << ret << endl;
     sleep(1);
 
     ret = ActivateSensor(0, &sensorUser);
@@ -447,7 +447,7 @@ HWTEST_F(SensorAgentInterfacesTest, DataReportInterfaceTest002, TestSize.Level0)
  * @tc.type: FUNC
  * @tc.require: AR000F46AO
  */
-HWTEST_F(SensorAgentInterfacesTest, DataReportInterfaceTest003, TestSize.Level0)
+HWTEST_F(SensorAgentInterfacesTest, DataReportInterfaceTest003, TestSize.Level1)
 {
     HILOG_INFO(HILOG_MODULE_APP, "DataReportInterfaceTest003 called");
     SensorUser sensorUser;
@@ -457,7 +457,7 @@ HWTEST_F(SensorAgentInterfacesTest, DataReportInterfaceTest003, TestSize.Level0)
     int32_t count = 0;
 
     int32_t ret = GetAllSensors(&sensorInfo, &count);
-    EXPECT_EQ(ret, 0) << "GetAllSensorsTest001 ret = " << ret << endl;
+    EXPECT_EQ(ret, 0) << "GetAllSensors ret = " << ret << endl;
     sleep(1);
 
     ret = SubscribeSensor(0, &sensorUser);
