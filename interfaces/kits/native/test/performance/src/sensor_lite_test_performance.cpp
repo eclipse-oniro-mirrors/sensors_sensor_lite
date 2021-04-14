@@ -67,7 +67,7 @@ uint64_t GetCurrentMillSecTime()
  * @tc.type: PERF
  * @tc.require: SR000F46AC
  */
-HWTEST_F(SensorLiteTestPerformance, GetAllSensorsPerformance001, TestSize.Level0)
+HWTEST_F(SensorLiteTestPerformance, GetAllSensorsPerformance001, TestSize.Level2)
 {
     SensorInfo *sensorInfo = (SensorInfo *)NULLPTR;
     int32_t count = 0;
@@ -95,7 +95,7 @@ HWTEST_F(SensorLiteTestPerformance, GetAllSensorsPerformance001, TestSize.Level0
  * @tc.type: PERF
  * @tc.require: SR000F46AE
  */
-HWTEST_F(SensorLiteTestPerformance, SubscribeSensorPerformance001, TestSize.Level0)
+HWTEST_F(SensorLiteTestPerformance, SubscribeSensorPerformance001, TestSize.Level2)
 {
     SensorUser sensorUser;
     sensorUser.callback = SensorDataCallbackImpl;
@@ -125,7 +125,7 @@ HWTEST_F(SensorLiteTestPerformance, SubscribeSensorPerformance001, TestSize.Leve
  * @tc.type: PERF
  * @tc.require: AR000F46AM
  */
-HWTEST_F(SensorLiteTestPerformance, UnsubscribeSensorPerformance001, TestSize.Level0)
+HWTEST_F(SensorLiteTestPerformance, UnsubscribeSensorPerformance001, TestSize.Level2)
 {
     SensorUser sensorUser;
     sensorUser.callback = SensorDataCallbackImpl;
@@ -156,7 +156,7 @@ HWTEST_F(SensorLiteTestPerformance, UnsubscribeSensorPerformance001, TestSize.Le
  * @tc.type: PERF
  * @tc.require: SR000F46AG
  */
-HWTEST_F(SensorLiteTestPerformance, ActivateSensorPerformance001, TestSize.Level0)
+HWTEST_F(SensorLiteTestPerformance, ActivateSensorPerformance001, TestSize.Level2)
 {
     SensorUser sensorUser;
     sensorUser.callback = SensorDataCallbackImpl;
@@ -188,7 +188,7 @@ HWTEST_F(SensorLiteTestPerformance, ActivateSensorPerformance001, TestSize.Level
  * @tc.type: PERF
  * @tc.require: AR000F46AJ
  */
-HWTEST_F(SensorLiteTestPerformance, DeactivateSensorPerformance001, TestSize.Level0)
+HWTEST_F(SensorLiteTestPerformance, DeactivateSensorPerformance001, TestSize.Level2)
 {
     SensorUser sensorUser;
     sensorUser.callback = SensorDataCallbackImpl;
@@ -221,7 +221,7 @@ HWTEST_F(SensorLiteTestPerformance, DeactivateSensorPerformance001, TestSize.Lev
  * @tc.type: PERF
  * @tc.require: SR000F46AN
  */
-HWTEST_F(SensorLiteTestPerformance, DataReportPerformanceTest001, TestSize.Level0)
+HWTEST_F(SensorLiteTestPerformance, DataReportPerformanceTest001, TestSize.Level2)
 {
     HILOG_INFO(HILOG_MODULE_APP, "%s called", __func__);
     SensorUser sensorUser;
