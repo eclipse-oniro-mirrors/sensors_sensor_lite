@@ -124,39 +124,44 @@ int32_t GetSensorInfos(IOwner owner, IpcIo *reply)
 {
     HILOG_DEBUG(HILOG_MODULE_APP, "%s begin", __func__);
     SensorNotifyBuffer *notify = (SensorNotifyBuffer *)owner;
-    notify->retCode = IpcIoPopInt32(reply);
-    if (notify->retCode < 0) {
-        HILOG_ERROR(HILOG_MODULE_APP, "%s failed, retCode: %d", __func__, notify->retCode);
+    if (notify == null) {
+        HILOG_ERROR(HILOG_MODULE_APP, "%s notify is null", __func__);
         return SENSOR_ERROR_INVALID_PARAM;
-    }
-    notify->count = IpcIoPopInt32(reply);
-    BuffPtr *dataBuf = IpcIoPopDataBuff(reply);
-    if ((notify->count <= 0) || (dataBuf == NULL) || (dataBuf->buff == NULL)) {
-        HILOG_ERROR(HILOG_MODULE_APP, "%s failed, count is incorrect or dataBuf is NULL or buff is NULL", __func__);
-        notify->retCode = SENSOR_ERROR_INVALID_PARAM;
-        return SENSOR_ERROR_INVALID_PARAM;
-    }
-    SensorInfo *sensorInfo = (SensorInfo *)(dataBuf->buff);
-    *(notify->sensorInfo) = (SensorInfo *)malloc(sizeof(SensorInfo) * notify->count);
-    if (*(notify->sensorInfo) == NULL) {
-        HILOG_ERROR(HILOG_MODULE_APP, "%s malloc sensorInfo failed", __func__);
-        FreeBuffer(NULL, dataBuf->buff);
-        notify->retCode = SENSOR_ERROR_INVALID_PARAM;
-        return SENSOR_ERROR_INVALID_PARAM;
-    }
-    for (int32_t i = 0; i < notify->count; i++) {
-        if (memcpy_s((*(notify->sensorInfo) + i), sizeof(SensorInfo), (sensorInfo + i),
-            sizeof(SensorInfo))) {
-            HILOG_ERROR(HILOG_MODULE_APP, "%s copy sensorInfo failed", __func__);
-            FreeBuffer(NULL, dataBuf->buff);
-            free(*(notify->sensorInfo));
-            *(notify->sensorInfo) = NULL;
+    } else {        
+        notify->retCode = IpcIoPopInt32(reply);
+        if (notify->retCode < 0) {
+            HILOG_ERROR(HILOG_MODULE_APP, "%s failed, retCode: %d", __func__, notify->retCode);
+            return SENSOR_ERROR_INVALID_PARAM;
+        }
+        notify->count = IpcIoPopInt32(reply);
+        BuffPtr *dataBuf = IpcIoPopDataBuff(reply);
+        if ((notify->count <= 0) || (dataBuf == NULL) || (dataBuf->buff == NULL)) {
+            HILOG_ERROR(HILOG_MODULE_APP, "%s failed, count is incorrect or dataBuf is NULL or buff is NULL", __func__);
             notify->retCode = SENSOR_ERROR_INVALID_PARAM;
             return SENSOR_ERROR_INVALID_PARAM;
         }
+        SensorInfo *sensorInfo = (SensorInfo *)(dataBuf->buff);
+        *(notify->sensorInfo) = (SensorInfo *)malloc(sizeof(SensorInfo) * notify->count);
+        if (*(notify->sensorInfo) == NULL) {
+            HILOG_ERROR(HILOG_MODULE_APP, "%s malloc sensorInfo failed", __func__);
+            FreeBuffer(NULL, dataBuf->buff);
+            notify->retCode = SENSOR_ERROR_INVALID_PARAM;
+            return SENSOR_ERROR_INVALID_PARAM;
+        }
+        for (int32_t i = 0; i < notify->count; i++) {
+            if (memcpy_s((*(notify->sensorInfo) + i), sizeof(SensorInfo), (sensorInfo + i),
+                sizeof(SensorInfo))) {
+                HILOG_ERROR(HILOG_MODULE_APP, "%s copy sensorInfo failed", __func__);
+                FreeBuffer(NULL, dataBuf->buff);
+                free(*(notify->sensorInfo));
+                *(notify->sensorInfo) = NULL;
+                notify->retCode = SENSOR_ERROR_INVALID_PARAM;
+                return SENSOR_ERROR_INVALID_PARAM;
+            }
+        }
+        FreeBuffer(NULL, dataBuf->buff);
+        return notify->retCode;
     }
-    FreeBuffer(NULL, dataBuf->buff);
-    return notify->retCode;
 }
 
 int32_t Notify(IOwner owner, int32_t code, IpcIo *reply)
@@ -167,17 +172,22 @@ int32_t Notify(IOwner owner, int32_t code, IpcIo *reply)
         return GetSensorInfos(owner, reply);
     }
     int32_t *ret = (int32_t *)owner;
-    if ((functionId > SENSOR_SERVICE_ID_GetAllSensors) && (functionId < SENSORMGR_LISTENER_NAME_LEN)) {
-        *ret = IpcIoPopInt32(reply);
-        HILOG_DEBUG(HILOG_MODULE_APP, "%s ret: %d", __func__, *ret);
+    if (ret == NULL) {
+        HILOG_ERROR(HILOG_MODULE_APP, "%s ret is null", __func__);
+        return SENSOR_ERROR_INVALID_PARAM;
     } else {
-        *ret = SENSOR_ERROR_INVALID_PARAM;
-        HILOG_ERROR(HILOG_MODULE_APP, "%s functionId: %d is invalid", __func__, functionId);
+        if ((functionId > SENSOR_SERVICE_ID_GetAllSensors) && (functionId < SENSORMGR_LISTENER_NAME_LEN)) {
+            *ret = IpcIoPopInt32(reply);
+            HILOG_DEBUG(HILOG_MODULE_APP, "%s ret: %d", __func__, *ret);
+        } else {
+            *ret = SENSOR_ERROR_INVALID_PARAM;
+            HILOG_ERROR(HILOG_MODULE_APP, "%s functionId: %d is invalid", __func__, functionId);
+        }
+        return *ret;
     }
-    return *ret;
 }
 
-void DispatchData(SensorEvent *sensorEvent)
+void DispatchData(const SensorEvent *sensorEvent)
 {
     HILOG_DEBUG(HILOG_MODULE_APP, "%s begin", __func__);
     if (sensorEvent == NULL) {
@@ -240,17 +250,22 @@ int32_t RegisterSensorChannel(const void *proxy, int32_t sensorId)
             return SENSOR_ERROR_INVALID_PARAM;
         }
         IClientProxy *client = (IClientProxy *)proxy;
-        int32_t retCode = -1;
-        ret = client->Invoke(client, SENSOR_SERVICE_ID_SubscribeSensor, &request, &retCode, Notify);
-        if ((ret != LITEIPC_OK) || (retCode != SENSOR_OK)) {
-            HILOG_ERROR(HILOG_MODULE_APP, "%s failed, ret: %d, retCode: %d", __func__, ret, retCode);
+        if (client == NULL) {
+            HILOG_ERROR(HILOG_MODULE_APP, "%s client is null", __func__);
             return SENSOR_ERROR_INVALID_PARAM;
-        }
-        if (g_sensorEvent == NULL) {
-            g_sensorEvent = (SensorEvent *)malloc(sizeof(SensorEvent));
-            if (g_sensorEvent == NULL) {
-                HILOG_ERROR(HILOG_MODULE_APP, "%s malloc failed", __func__);
+        } else {
+            int32_t retCode = -1;
+            ret = client->Invoke(client, SENSOR_SERVICE_ID_SubscribeSensor, &request, &retCode, Notify);
+            if ((ret != LITEIPC_OK) || (retCode != SENSOR_OK)) {
+                HILOG_ERROR(HILOG_MODULE_APP, "%s failed, ret: %d, retCode: %d", __func__, ret, retCode);
                 return SENSOR_ERROR_INVALID_PARAM;
+            }
+            if (g_sensorEvent == NULL) {
+                g_sensorEvent = (SensorEvent *)malloc(sizeof(SensorEvent));
+                if (g_sensorEvent == NULL) {
+                    HILOG_ERROR(HILOG_MODULE_APP, "%s malloc failed", __func__);
+                    return SENSOR_ERROR_INVALID_PARAM;
+                }
             }
         }
     } else {
@@ -272,18 +287,23 @@ int32_t UnregisterSensorChannel(const void *proxy, int32_t sensorId)
             HILOG_ERROR(HILOG_MODULE_APP, "%s ipc communication failed", __func__);
             return SENSOR_ERROR_INVALID_PARAM;
         }
-        int32_t retCode = -1;
         IClientProxy *client = (IClientProxy *)proxy;
-        int32_t ret = client->Invoke(client, SENSOR_SERVICE_ID_UnsubscribeSensor, &request, &retCode, Notify);
-        if ((ret != SENSOR_OK) || (retCode != SENSOR_OK)) {
-            HILOG_ERROR(HILOG_MODULE_APP, "%s failed, ret: %d, retCode: %d", __func__, ret, retCode);
+        if (client == NULL) {
+            HILOG_ERROR(HILOG_MODULE_APP, "%s client is null", __func__);
             return SENSOR_ERROR_INVALID_PARAM;
+        } else {
+            int32_t retCode = -1;
+            int32_t ret = client->Invoke(client, SENSOR_SERVICE_ID_UnsubscribeSensor, &request, &retCode, Notify);
+            if ((ret != SENSOR_OK) || (retCode != SENSOR_OK)) {
+                HILOG_ERROR(HILOG_MODULE_APP, "%s failed, ret: %d, retCode: %d", __func__, ret, retCode);
+                return SENSOR_ERROR_INVALID_PARAM;
+            }
+            if (g_sensorEvent != NULL) {
+                free(g_sensorEvent);
+                g_sensorEvent = NULL;
+            }
+            HILOG_DEBUG(HILOG_MODULE_APP, "%s sensorChannel has been destroyed ", __func__);
         }
-        if (g_sensorEvent != NULL) {
-            free(g_sensorEvent);
-            g_sensorEvent = NULL;
-        }
-        HILOG_DEBUG(HILOG_MODULE_APP, "%s sensorChannel has been destroyed ", __func__);
     }
     return SENSOR_OK;
 }
@@ -435,7 +455,7 @@ int32_t SubscribeSensorByProxy(const void *proxy, int32_t sensorId, const Sensor
         HILOG_ERROR(HILOG_MODULE_APP, "%s proxy or user or callback is NULL", __func__);
         return SENSOR_ERROR_INVALID_PARAM;
     }
-    if (CheckSensorTypeId(sensorId)) {
+    if (CheckSensorTypeId(sensorId) != SENSOR_OK) {
         HILOG_ERROR(HILOG_MODULE_APP, "%s sensorid: %d is invalid", __func__, sensorId);
         return SENSOR_ERROR_INVALID_PARAM;
     }
@@ -459,7 +479,7 @@ int32_t UnsubscribeSensorByProxy(const void *proxy, int32_t sensorId, const Sens
         HILOG_ERROR(HILOG_MODULE_APP, "%s proxy or user or callback is NULL", __func__);
         return SENSOR_ERROR_INVALID_PARAM;
     }
-    if (CheckSensorTypeId(sensorId)) {
+    if (CheckSensorTypeId(sensorId) != SENSOR_OK) {
         HILOG_ERROR(HILOG_MODULE_APP, "%s sensorid: %d is invalid", __func__, sensorId);
         return SENSOR_ERROR_INVALID_PARAM;
     }

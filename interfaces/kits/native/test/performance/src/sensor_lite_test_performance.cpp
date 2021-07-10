@@ -58,7 +58,7 @@ uint64_t GetCurrentMillSecTime()
 {
     struct timespec ts = {0, 0};
     clock_gettime(CLOCK_REALTIME, &ts);
-    return ((ts.tv_sec * MS_PER_SECOND) + (ts.tv_nsec / NS_PER_MS));
+    return (uint64_t)((ts.tv_sec * MS_PER_SECOND) + (ts.tv_nsec / NS_PER_MS));
 }
 
 /**
