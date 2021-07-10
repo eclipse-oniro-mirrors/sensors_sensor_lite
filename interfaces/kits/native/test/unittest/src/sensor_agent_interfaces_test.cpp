@@ -108,7 +108,7 @@ HWTEST_F(SensorAgentInterfacesTest, GetAllSensorsInterfaceTest003, TestSize.Leve
  */
 HWTEST_F(SensorAgentInterfacesTest, GetAllSensorsInterfaceTest004, TestSize.Level1)
 {
-    HILOG_INFO(HILOG_MODULE_APP, "%GetAllSensorsInterfaceTest004 called");
+    HILOG_INFO(HILOG_MODULE_APP, "GetAllSensorsInterfaceTest004 called");
     SensorInfo *sensorInfo = (SensorInfo *)NULLPTR;
     int32_t ret = GetAllSensors(&sensorInfo, (int32_t *)NULLPTR);
     EXPECT_EQ(ret, SENSOR_ERROR_INVALID_PARAM) << "GetAllSensors ret = " << ret << endl;

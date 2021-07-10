@@ -54,7 +54,7 @@ const char *SENSOR_GetName(Service *service)
     return SENSOR_SERVICE;
 }
 
-static int SensorDataCallback(SensorEvent *event)
+static int SensorDataCallback(const SensorEvent *event)
 {
     HILOG_DEBUG(HILOG_MODULE_APP, "[SERVICE:%s]: %s begin", SENSOR_SERVICE, __func__);
     if ((event == NULL) || (event->dataLen == 0)) {
