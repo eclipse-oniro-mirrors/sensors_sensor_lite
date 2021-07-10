@@ -124,7 +124,7 @@ int32_t GetSensorInfos(IOwner owner, IpcIo *reply)
 {
     HILOG_DEBUG(HILOG_MODULE_APP, "%s begin", __func__);
     SensorNotifyBuffer *notify = (SensorNotifyBuffer *)owner;
-    if (notify == null) {
+    if (notify == NULL) {
         HILOG_ERROR(HILOG_MODULE_APP, "%s notify is null", __func__);
         return SENSOR_ERROR_INVALID_PARAM;
     } else {        
