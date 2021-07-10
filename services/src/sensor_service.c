@@ -24,65 +24,69 @@
 int32_t GetAllSensorsInvoke(SensorFeatureApi *defaultApi, IpcIo *req, IpcIo *reply)
 {
     HILOG_DEBUG(HILOG_MODULE_APP, "[SERVICE:%s]: %s begin", SENSOR_SERVICE, __func__);
-    SensorInfo *sensorInfo = NULL;
-    int32_t count = 0;
+    IpcIoPushInt32(reply, SENSOR_SERVICE_ID_GetAllSensors);
     if (defaultApi == NULL) {
         HILOG_ERROR(HILOG_MODULE_APP, "[SERVICE:%s]: %s failed, defaultApi is null", SENSOR_SERVICE, __func__);
         IpcIoPushInt32(reply, SENSOR_ERROR_UNKNOWN);
         return SENSOR_ERROR_UNKNOWN;
+    } else{
+        SensorInfo *sensorInfo = NULL;
+        int32_t count = 0;
+        int32_t ret = defaultApi->GetAllSensors(&sensorInfo, &count);
+        if (ret != SENSOR_OK) {
+            HILOG_ERROR(HILOG_MODULE_APP, "[SERVICE:%s]: %s failed, ret: %d", SENSOR_SERVICE, __func__, ret);
+            IpcIoPushInt32(reply, ret);
+            return ret;
+        }
+        BuffPtr dataBuff = {
+            .buffSz = (uint32_t)(count * sizeof(SensorInfo)),
+            .buff = sensorInfo
+        };
+        IpcIoPushInt32(reply, SENSOR_OK);
+        IpcIoPushInt32(reply, count);
+        IpcIoPushDataBuff(reply, &dataBuff);
+        return SENSOR_OK;
     }
-    int32_t ret = defaultApi->GetAllSensors(&sensorInfo, &count);
-    IpcIoPushInt32(reply, SENSOR_SERVICE_ID_GetAllSensors);
-    if (ret != SENSOR_OK) {
-        HILOG_ERROR(HILOG_MODULE_APP, "[SERVICE:%s]: %s failed, ret: %d", SENSOR_SERVICE, __func__, ret);
-        IpcIoPushInt32(reply, ret);
-        return ret;
-    }
-    BuffPtr dataBuff = {
-        .buffSz = (uint32_t)(count * sizeof(SensorInfo)),
-        .buff = sensorInfo
-    };
-    IpcIoPushInt32(reply, SENSOR_OK);
-    IpcIoPushInt32(reply, count);
-    IpcIoPushDataBuff(reply, &dataBuff);
-    return SENSOR_OK;
 }
 
 int32_t ActivateSensorInvoke(SensorFeatureApi *defaultApi, IpcIo *req, IpcIo *reply)
 {
     HILOG_DEBUG(HILOG_MODULE_APP, "[SERVICE:%s]: %s begin", SENSOR_SERVICE, __func__);
+    IpcIoPushInt32(reply, SENSOR_SERVICE_ID_ActivateSensor);
     int32_t sensorId = IpcIoPopInt32(req);
     if (defaultApi == NULL) {
         HILOG_ERROR(HILOG_MODULE_APP, "[SERVICE:%s]: %s failed, defaultApi is null", SENSOR_SERVICE, __func__);
         IpcIoPushInt32(reply, SENSOR_ERROR_UNKNOWN);
         return SENSOR_ERROR_UNKNOWN;
+    } else {
+        SensorUser sensorUser;
+        int32_t ret = defaultApi->ActivateSensor(sensorId, &sensorUser);
+        IpcIoPushInt32(reply, ret);
+        return ret;
     }
-    SensorUser sensorUser;
-    int32_t ret = defaultApi->ActivateSensor(sensorId, &sensorUser);
-    IpcIoPushInt32(reply, SENSOR_SERVICE_ID_ActivateSensor);
-    IpcIoPushInt32(reply, ret);
-    return ret;
 }
 
 int32_t DeactivateSensorInvoke(SensorFeatureApi *defaultApi, IpcIo *req, IpcIo *reply)
 {
     HILOG_DEBUG(HILOG_MODULE_APP, "[SERVICE:%s]: %s begin", SENSOR_SERVICE, __func__);
+    IpcIoPushInt32(reply, SENSOR_SERVICE_ID_DeactivateSensor);
     int32_t sensorId = IpcIoPopInt32(req);
     if (defaultApi == NULL) {
         HILOG_ERROR(HILOG_MODULE_APP, "[SERVICE:%s]: %s failed, defaultApi is null", SENSOR_SERVICE, __func__);
         IpcIoPushInt32(reply, SENSOR_ERROR_UNKNOWN);
         return SENSOR_ERROR_UNKNOWN;
+    } else {
+        SensorUser sensorUser;
+        int32_t ret = defaultApi->DeactivateSensor(sensorId, &sensorUser);
+        IpcIoPushInt32(reply, ret);
+        return ret;
     }
-    SensorUser sensorUser;
-    int32_t ret = defaultApi->DeactivateSensor(sensorId, &sensorUser);
-    IpcIoPushInt32(reply, SENSOR_SERVICE_ID_DeactivateSensor);
-    IpcIoPushInt32(reply, ret);
-    return ret;
 }
 
 int32_t SetBatchInvoke(SensorFeatureApi *defaultApi, IpcIo *req, IpcIo *reply)
 {
     HILOG_DEBUG(HILOG_MODULE_APP, "[SERVICE:%s]: %s begin", SENSOR_SERVICE, __func__);
+    IpcIoPushInt32(reply, SENSOR_SERVICE_ID_SetBatchs);
     int32_t sensorId = IpcIoPopInt32(req);
     int64_t updateInterval = IpcIoPopInt64(req);
     int64_t maxDelay = IpcIoPopInt64(req);
@@ -90,79 +94,83 @@ int32_t SetBatchInvoke(SensorFeatureApi *defaultApi, IpcIo *req, IpcIo *reply)
         HILOG_ERROR(HILOG_MODULE_APP, "[SERVICE:%s]: %s failed, defaultApi is null", SENSOR_SERVICE, __func__);
         IpcIoPushInt32(reply, SENSOR_ERROR_UNKNOWN);
         return SENSOR_ERROR_UNKNOWN;
+    } else {
+        SensorUser sensorUser;
+        int32_t ret = defaultApi->SetBatch(sensorId, &sensorUser, updateInterval, maxDelay);
+        IpcIoPushInt32(reply, ret);
+        return ret;
     }
-    SensorUser sensorUser;
-    int32_t ret = defaultApi->SetBatch(sensorId, &sensorUser, updateInterval, maxDelay);
-    IpcIoPushInt32(reply, SENSOR_SERVICE_ID_SetBatchs);
-    IpcIoPushInt32(reply, ret);
-    return ret;
 }
 
 int32_t SubscribeSensorInvoke(SensorFeatureApi *defaultApi, IpcIo *req, IpcIo *reply)
 {
     HILOG_DEBUG(HILOG_MODULE_APP, "[SERVICE:%s]: %s begin", SENSOR_SERVICE, __func__);
+    IpcIoPushInt32(reply, SENSOR_SERVICE_ID_SubscribeSensor);
     int32_t sensorId = IpcIoPopInt32(req);
     if (defaultApi == NULL) {
         HILOG_ERROR(HILOG_MODULE_APP, "[SERVICE:%s]: %s failed, defaultApi is null", SENSOR_SERVICE, __func__);
         IpcIoPushInt32(reply, SENSOR_ERROR_UNKNOWN);
         return SENSOR_ERROR_UNKNOWN;
+    } else {
+        SensorUser sensorUser;
+        int32_t ret = defaultApi->SubscribeSensor(sensorId, &sensorUser);
+        SetSvcIdentity(req, reply);
+        IpcIoPushInt32(reply, ret);
+        return ret;
     }
-    SensorUser sensorUser;
-    int32_t ret = defaultApi->SubscribeSensor(sensorId, &sensorUser);
-    SetSvcIdentity(req, reply);
-    IpcIoPushInt32(reply, SENSOR_SERVICE_ID_SubscribeSensor);
-    IpcIoPushInt32(reply, ret);
-    return ret;
 }
 
 int32_t UnsubscribeSensorInvoke(SensorFeatureApi *defaultApi, IpcIo *req, IpcIo *reply)
 {
     HILOG_DEBUG(HILOG_MODULE_APP, "[SERVICE:%s]: %s begin", SENSOR_SERVICE, __func__);
+    IpcIoPushInt32(reply, SENSOR_SERVICE_ID_UnsubscribeSensor);
     int32_t sensorId = IpcIoPopInt32(req);
     if (defaultApi == NULL) {
         HILOG_ERROR(HILOG_MODULE_APP, "[SERVICE:%s]: %s failed, defaultApi is null", SENSOR_SERVICE, __func__);
         IpcIoPushInt32(reply, SENSOR_ERROR_UNKNOWN);
         return SENSOR_ERROR_UNKNOWN;
+    } else {    
+        SensorUser sensorUser;
+        int32_t ret = defaultApi->UnsubscribeSensor(sensorId, &sensorUser);
+        IpcIoPushInt32(reply, ret);
+        return ret;
     }
-    SensorUser sensorUser;
-    int32_t ret = defaultApi->UnsubscribeSensor(sensorId, &sensorUser);
-    IpcIoPushInt32(reply, SENSOR_SERVICE_ID_UnsubscribeSensor);
-    IpcIoPushInt32(reply, ret);
-    return ret;
 }
 
 int32_t SetModeInvoke(SensorFeatureApi *defaultApi, IpcIo *req, IpcIo *reply)
 {
     HILOG_DEBUG(HILOG_MODULE_APP, "[SERVICE:%s]: %s begin", SENSOR_SERVICE, __func__);
+    IpcIoPushInt32(reply, SENSOR_SERVICE_ID_SetMode);
     int32_t sensorId = IpcIoPopInt32(req);
     int32_t mode = IpcIoPopInt32(req);
     if (defaultApi == NULL) {
         HILOG_ERROR(HILOG_MODULE_APP, "[SERVICE:%s]: %s failed, defaultApi is null", SENSOR_SERVICE, __func__);
         IpcIoPushInt32(reply, SENSOR_ERROR_UNKNOWN);
         return SENSOR_ERROR_UNKNOWN;
+    } else {
+        SensorUser sensorUser;
+        int32_t ret = defaultApi->SetMode(sensorId, &sensorUser, mode);
+        IpcIoPushInt32(reply, ret);
+        return ret;
     }
-    SensorUser sensorUser;
-    int32_t ret = defaultApi->SetMode(sensorId, &sensorUser, mode);
-    IpcIoPushInt32(reply, SENSOR_SERVICE_ID_SetMode);
-    IpcIoPushInt32(reply, ret);
-    return ret;
 }
 
 int32_t SetOptionInvoke(SensorFeatureApi *defaultApi, IpcIo *req, IpcIo *reply)
 {
     HILOG_DEBUG(HILOG_MODULE_APP, "[SERVICE:%s]: %s begin", SENSOR_SERVICE, __func__);
+    IpcIoPushInt32(reply, SENSOR_SERVICE_ID_SetOption);
     int32_t sensorId = IpcIoPopInt32(req);
     int32_t option = IpcIoPopInt32(req);
     if (defaultApi == NULL) {
         HILOG_ERROR(HILOG_MODULE_APP, "[SERVICE:%s]: %s failed, defaultApi is null", SENSOR_SERVICE, __func__);
         IpcIoPushInt32(reply, SENSOR_ERROR_UNKNOWN);
         return SENSOR_ERROR_UNKNOWN;
+    } else {
+        SensorUser sensorUser;
+        int32_t ret = defaultApi->SetOption(sensorId, &sensorUser, option);
+        IpcIoPushInt32(reply, ret);
+        return ret;
     }
-    SensorUser sensorUser;
-    int32_t ret = defaultApi->SetOption(sensorId, &sensorUser, option);
-    IpcIoPushInt32(reply, SENSOR_SERVICE_ID_SetOption);
-    IpcIoPushInt32(reply, ret);
-    return ret;
 }
 
 static InvokeFunc g_invokeFuncList[] = {
