@@ -24,8 +24,6 @@ executable("sensor_service") {
   include_dirs = [
     "./include",
     "//third_party/bounds_checking_function/include",
-    "//kernel/liteos_a/kernel/include",
-    "//kernel/liteos_a/kernel/common",
     "//utils/native/lite/include",
     "//foundation/distributedschedule/samgr_lite/interfaces/kits/registry",
     "//foundation/distributedschedule/samgr_lite/interfaces/kits/samgr",
