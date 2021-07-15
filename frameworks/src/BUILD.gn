@@ -32,11 +32,7 @@ shared_library("sensor_client") {
   include_dirs = [
     "../include",
     "//third_party/bounds_checking_function/include",
-    "//kernel/liteos_a/kernel/include",
-    "//kernel/liteos_a/kernel/common",
     "//utils/native/lite/include",
-    "//kernel/liteos_a/kernel/include",
-    "//kernel/liteos_a/kernel/common",
     "//foundation/distributedschedule/samgr_lite/interfaces/kits/registry",
     "//foundation/distributedschedule/samgr_lite/interfaces/kits/samgr",
     "//foundation/distributedschedule/samgr_lite/interfaces/kits/communication/broadcast",
