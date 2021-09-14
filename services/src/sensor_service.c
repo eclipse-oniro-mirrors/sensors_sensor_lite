@@ -29,24 +29,23 @@ int32_t GetAllSensorsInvoke(SensorFeatureApi *defaultApi, IpcIo *req, IpcIo *rep
         HILOG_ERROR(HILOG_MODULE_APP, "[SERVICE:%s]: %s failed, defaultApi is null", SENSOR_SERVICE, __func__);
         IpcIoPushInt32(reply, SENSOR_ERROR_UNKNOWN);
         return SENSOR_ERROR_UNKNOWN;
-    } else{
-        SensorInfo *sensorInfo = NULL;
-        int32_t count = 0;
-        int32_t ret = defaultApi->GetAllSensors(&sensorInfo, &count);
-        if (ret != SENSOR_OK) {
-            HILOG_ERROR(HILOG_MODULE_APP, "[SERVICE:%s]: %s failed, ret: %d", SENSOR_SERVICE, __func__, ret);
-            IpcIoPushInt32(reply, ret);
-            return ret;
-        }
-        BuffPtr dataBuff = {
-            .buffSz = (uint32_t)(count * sizeof(SensorInfo)),
-            .buff = sensorInfo
-        };
-        IpcIoPushInt32(reply, SENSOR_OK);
-        IpcIoPushInt32(reply, count);
-        IpcIoPushDataBuff(reply, &dataBuff);
-        return SENSOR_OK;
     }
+    SensorInfo *sensorInfo = NULL;
+    int32_t count = 0;
+    int32_t ret = defaultApi->GetAllSensors(&sensorInfo, &count);
+    if (ret != SENSOR_OK) {
+        HILOG_ERROR(HILOG_MODULE_APP, "[SERVICE:%s]: %s failed, ret: %d", SENSOR_SERVICE, __func__, ret);
+        IpcIoPushInt32(reply, ret);
+        return ret;
+    }
+    BuffPtr dataBuff = {
+        .buffSz = (uint32_t)(count * sizeof(SensorInfo)),
+        .buff = sensorInfo
+    };
+    IpcIoPushInt32(reply, SENSOR_OK);
+    IpcIoPushInt32(reply, count);
+    IpcIoPushDataBuff(reply, &dataBuff);
+    return SENSOR_OK;
 }
 
 int32_t ActivateSensorInvoke(SensorFeatureApi *defaultApi, IpcIo *req, IpcIo *reply)
