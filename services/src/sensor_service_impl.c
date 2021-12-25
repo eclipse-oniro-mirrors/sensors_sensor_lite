@@ -233,7 +233,7 @@ int32_t SubscribeSensorImpl(int32_t sensorId, const SensorUser *user)
             SENSOR_SERVICE, __func__);
         return SENSOR_ERROR_INVALID_PARAM;
     }
-    int32_t ret = g_sensorDevice->Register(SensorDataCallback);
+    int32_t ret = g_sensorDevice->Register(0, SensorDataCallback);
     if (ret != 0) {
         HILOG_ERROR(HILOG_MODULE_APP, "[SERVICE:%s]: %s register sensor user failed, ret: %d",
             SENSOR_SERVICE, __func__, ret);
@@ -261,7 +261,7 @@ int32_t UnsubscribeSensorImpl(int32_t sensorId, const SensorUser *user)
             SENSOR_SERVICE, __func__);
         return SENSOR_ERROR_INVALID_PARAM;
     }
-    int32_t ret = g_sensorDevice->Unregister();
+    int32_t ret = g_sensorDevice->Unregister(0);
     if (ret != 0) {
         HILOG_ERROR(HILOG_MODULE_APP, "[SERVICE:%s]: %s unregister sensor failed, ret: %d",
             SENSOR_SERVICE, __func__, ret);
