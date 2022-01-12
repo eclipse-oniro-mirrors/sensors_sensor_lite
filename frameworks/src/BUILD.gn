@@ -42,5 +42,5 @@ shared_library("sensor_client") {
     "//base/sensors/sensor_lite/services/include",
   ]
 
-  deps = [ "samgr_lite:samgr" ]
+  deps = [ "//foundation/distributedschedule/samgr_lite/samgr:samgr" ]
 }

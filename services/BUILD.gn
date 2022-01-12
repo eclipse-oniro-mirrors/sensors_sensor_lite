@@ -37,6 +37,6 @@ executable("sensor_service") {
 
   deps = [
     "//drivers/peripheral/sensor/hal:hdi_sensor",
-    "samgr_lite:samgr",
+    "//foundation/distributedschedule/samgr_lite/samgr:samgr",
   ]
 }
