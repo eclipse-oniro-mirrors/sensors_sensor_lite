@@ -38,7 +38,7 @@ int32_t InitSensorList()
             SENSOR_SERVICE, __func__);
         return SENSOR_ERROR_INVALID_PARAM;
     }
-    int32_t ret = g_sensorDevice->GetAllSensors(&(reinterpret_cast<SensorInformation>(g_sensorLists)),
+    int32_t ret = g_sensorDevice->GetAllSensors(&((SensorInformation)g_sensorLists),
         &g_sensorListsLength);
     if ((ret != 0) || (g_sensorLists == NULL)) {
         HILOG_ERROR(HILOG_MODULE_APP, "[SERVICE:%s]: %s getAllSensors failed, ret: %d",
@@ -68,7 +68,7 @@ static int SensorDataCallback(const struct SensorEvent *event)
     IpcIoInit(&io, data, IPC_IO_DATA_MAX, IPC_MAX_OBJECTS);
     BuffPtr eventBuff = {
         .buffSz = (uint32_t)(sizeof(struct SensorEvent)),
-        .buff = reinterpret_cast<void *>(event)
+        .buff = (void *)(event)
     };
     BuffPtr sensorDataBuff = {
         .buffSz = (uint32_t)(event->dataLen),
@@ -234,7 +234,7 @@ int32_t SubscribeSensorImpl(int32_t sensorId, const SensorUser *user)
             SENSOR_SERVICE, __func__);
         return SENSOR_ERROR_INVALID_PARAM;
     }
-    int32_t ret = g_sensorDevice->Register(0, SensorDataCallback);
+    int32_t ret = g_sensorDevice->Register(0, (RecordDataCallback)SensorDataCallback);
     if (ret != 0) {
         HILOG_ERROR(HILOG_MODULE_APP, "[SERVICE:%s]: %s register sensor user failed, ret: %d",
             SENSOR_SERVICE, __func__, ret);
