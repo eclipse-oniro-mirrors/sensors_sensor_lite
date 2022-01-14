@@ -21,6 +21,7 @@
 
 #include "liteipc_adapter.h"
 #include "sensor_service.h"
+#include "sensor_type.h"
 
 static struct SensorInfos *g_sensorLists;
 static int32_t g_sensorListsLength;
