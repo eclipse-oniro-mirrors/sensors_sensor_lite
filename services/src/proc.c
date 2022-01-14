@@ -13,9 +13,9 @@
  * limitations under the License.
  */
 
-#include "samgr_lite.h"
 #include <stdio.h>
 #include <unistd.h>
+#include "samgr_lite.h"
 
 void __attribute__((weak)) OHOS_SystemInit(void)
 {
