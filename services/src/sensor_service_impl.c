@@ -23,7 +23,7 @@
 #include "sensor_service.h"
 #include "sensor_type.h"
 
-static struct SensorInfos *g_sensorLists;
+static struct SensorInformation *g_sensorLists;
 static int32_t g_sensorListsLength;
 const struct SensorInterface *g_sensorDevice;
 static SvcIdentity g_svcIdentity = {
@@ -39,7 +39,7 @@ int32_t InitSensorList()
             SENSOR_SERVICE, __func__);
         return SENSOR_ERROR_INVALID_PARAM;
     }
-    int32_t ret = g_sensorDevice->GetAllSensors(&((struct SensorInformation *)g_sensorLists),
+    int32_t ret = g_sensorDevice->GetAllSensors(&g_sensorLists),
         &g_sensorListsLength);
     if ((ret != 0) || (g_sensorLists == NULL)) {
         HILOG_ERROR(HILOG_MODULE_APP, "[SERVICE:%s]: %s getAllSensors failed, ret: %d",
