@@ -24,7 +24,7 @@
 
 static struct SensorInfos *g_sensorLists;
 static int32_t g_sensorListsLength;
-static struct SensorInterface *g_sensorDevice;
+const struct SensorInterface *g_sensorDevice;
 static SvcIdentity g_svcIdentity = {
     .handle = 0,
     .token = 0,
@@ -38,7 +38,8 @@ int32_t InitSensorList()
             SENSOR_SERVICE, __func__);
         return SENSOR_ERROR_INVALID_PARAM;
     }
-    int32_t ret = g_sensorDevice->GetAllSensors(&g_sensorLists, &g_sensorListsLength);
+    int32_t ret = g_sensorDevice->GetAllSensors(&(reinterpret_cast<SensorInformation>(g_sensorLists)),
+        &g_sensorListsLength);
     if ((ret != 0) || (g_sensorLists == NULL)) {
         HILOG_ERROR(HILOG_MODULE_APP, "[SERVICE:%s]: %s getAllSensors failed, ret: %d",
             SENSOR_SERVICE, __func__, ret);
@@ -54,7 +55,7 @@ const char *SENSOR_GetName(Service *service)
     return SENSOR_SERVICE;
 }
 
-static int SensorDataCallback(const SensorEvent *event)
+static int SensorDataCallback(const struct SensorEvent *event)
 {
     HILOG_DEBUG(HILOG_MODULE_APP, "[SERVICE:%s]: %s begin", SENSOR_SERVICE, __func__);
     if ((event == NULL) || (event->dataLen == 0)) {
@@ -66,8 +67,8 @@ static int SensorDataCallback(const SensorEvent *event)
     uint8_t data[IPC_IO_DATA_MAX];
     IpcIoInit(&io, data, IPC_IO_DATA_MAX, IPC_MAX_OBJECTS);
     BuffPtr eventBuff = {
-        .buffSz = (uint32_t)(sizeof(SensorEvent)),
-        .buff = event
+        .buffSz = (uint32_t)(sizeof(struct SensorEvent)),
+        .buff = reinterpret_cast<void *>(event)
     };
     BuffPtr sensorDataBuff = {
         .buffSz = (uint32_t)(event->dataLen),
@@ -84,7 +85,7 @@ static int SensorDataCallback(const SensorEvent *event)
     return SENSOR_OK;
 }
 
-void SetSvcIdentity(const IpcIo *req, const IpcIo *reply)
+void SetSvcIdentity(IpcIo *req, const IpcIo *reply)
 {
     SvcIdentity *sid = IpcIoPopSvc(req);
     if (sid == NULL) {
